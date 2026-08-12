@@ -30,6 +30,8 @@ typedef struct s_dongle
 	pthread_mutex_t		mutex;
 	pthread_cond_t		cond;
 	int 				is_free;
+	long 				cooldown;
+	long 				available_at;
 }						t_dongle;
 
 typedef struct s_coder

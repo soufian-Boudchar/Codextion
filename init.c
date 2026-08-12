@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 17:12:48 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/10 22:48:52 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/08/12 07:44:05 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	init_dongles(t_data *data)
 	{
 		pthread_mutex_init(&data->dongles[i].mutex, NULL);
 		pthread_cond_init(&data->dongles[i].cond, NULL);
+		data->dongles[i].is_free = 1;
 		i++;
 	}
 	return (0);
@@ -59,8 +60,6 @@ int	init_coders(t_data *data)
 		data->coders[i].L_dongle = &data->dongles[i];
 		data->coders[i].R_dongle = &data->dongles[(i + 1)
 			% data->args.n_coders];
-		data->coders[i].L_dongle->is_free = 1;
-		data->coders[i].R_dongle->is_free = 1;
 		data->coders[i].data = data;
 		pthread_mutex_init(&data->coders[i].coder_mutex, NULL);
 		pthread_cond_init(&data->coders[i].coder_cond, NULL);
