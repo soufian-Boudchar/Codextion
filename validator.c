@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:47:03 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/04 01:18:09 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/08/10 03:50:57 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	init_args(char **av, t_args *args)
 {
-	args->number_of_coders = ft_atoi(av[0]);
-	args->time_to_burnout = ft_atoi(av[1]);
-	args->time_to_compile = ft_atoi(av[2]);
-	args->time_to_debug = ft_atoi(av[3]);
-	args->time_to_refactor = ft_atoi(av[4]);
-	args->number_of_compiles_required = ft_atoi(av[5]);
+	args->n_coders = ft_atoi(av[0]);
+	args->time_burnout = ft_atoi(av[1]);
+	args->time_compile = ft_atoi(av[2]);
+	args->time_debug = ft_atoi(av[3]);
+	args->time_refactor = ft_atoi(av[4]);
+	args->n_compiles_required = ft_atoi(av[5]);
 	args->dongle_cooldown = ft_atoi(av[6]);
 	// args->scheduler = av[7];
 }
@@ -32,10 +32,10 @@ int	scheduler_validator(t_args *args, int *valid, char *scheduler)
 		*valid = -1;
 	}
 	else if (strcmp(scheduler, "fifo") == 0)
-		args->scheduler = 0;
-
-	else if (strcmp(scheduler, "edf") == 0){
-		args->scheduler = 1;
+		args->sch = 0;
+	else if (strcmp(scheduler, "edf") == 0)
+	{
+		args->sch = 1;
 	}
 	return (0);
 }
@@ -60,12 +60,12 @@ int	validate_args(char **av, t_args *args)
 
 	i = 0;
 	init_args(av, args);
-	values[0] = args->number_of_coders;
-	values[1] = args->time_to_burnout;
-	values[2] = args->time_to_compile;
-	values[3] = args->time_to_debug;
-	values[4] = args->time_to_refactor;
-	values[5] = args->number_of_compiles_required;
+	values[0] = args->n_coders;
+	values[1] = args->time_burnout;
+	values[2] = args->time_compile;
+	values[3] = args->time_debug;
+	values[4] = args->time_refactor;
+	values[5] = args->n_compiles_required;
 	values[6] = args->dongle_cooldown;
 	valid = check_zero(av, values);
 	while ((unsigned long)i < sizeof(values) / sizeof(values[0]))

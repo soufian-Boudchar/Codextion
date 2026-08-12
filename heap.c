@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:09:30 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/05 03:35:35 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/08/07 02:02:01 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	heap_push(t_heap *heap, t_request new_req)
 {
 	int	i;
 	int	parent;
-    
-    // This is error for handling ?!
+
+	// This is error for handling ?!
 	if (heap->used >= heap->size)
-		return;
+		return ;
 	heap->array[heap->used] = new_req;
 	heap->used++;
 	i = heap->used - 1;
@@ -63,27 +63,25 @@ int	get_smallest(t_heap *heap, int parent)
 
 t_request	heap_pop(t_heap *heap)
 {
-	t_request min;
-	int smallest;
-	int parent;
+	t_request	min;
+	int			smallest;
+	int			parent;
 
-    // This is error for handling ?!
-    if (heap->used == 0){
-        min.coder_id = -1;
-        return min;
-    }
-
+	// This is error for handling ?!
+	if (heap->used == 0)
+	{
+		min.coder_id = -1;
+		return (min);
+	}
 	min = heap->array[0];
 	heap->array[0] = heap->array[heap->used - 1];
 	heap->used--;
 	parent = 0;
-
 	while ((2 * parent + 1) < heap->used)
 	{
 		smallest = get_smallest(heap, parent);
 		if (smallest == parent)
 			break ;
-
 		swap_requests(&heap->array[smallest], &heap->array[parent]);
 		parent = smallest;
 	}
