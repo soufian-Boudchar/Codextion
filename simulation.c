@@ -24,7 +24,6 @@ int check_game_over(t_data *data){
 	return status;
 }
 
-// Zid had l-fonction l-fo9
 void print_action(t_coder *coder, char *action)
 {
     long time;
@@ -36,6 +35,8 @@ void print_action(t_coder *coder, char *action)
     }
     pthread_mutex_unlock(&coder->data->monitor.game_over_mutex);
 }
+
+
 
 void	*coder_routine(void *coder_ptr)
 {
