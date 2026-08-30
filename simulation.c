@@ -1,4 +1,7 @@
 #include "codexion.h"
+
+
+
 void	get_elapsed_ms(struct timeval start, long *time_ms)
 {
 	struct timeval	end;
@@ -14,6 +17,7 @@ void	update_simulation_current_time(t_data *data, long *current_time_ms)
 	get_elapsed_ms(data->simulation.start_time_tv, current_time_ms);
 	pthread_mutex_unlock(&data->simulation.timer_mutex);
 }
+
 int check_game_over(t_data *data){
 	int status;
 
@@ -56,12 +60,18 @@ void	*coder_routine(void *coder_ptr)
 			req.priority = current_time_ms;
 		}
 		else if (coder->data->args.sch == 1)
-		{ // if scheduler == EDF
-			pthread_mutex_lock(&coder->time_mutex);
-			get_elapsed_ms(coder->lst_compile_tv, &current_time_ms);
-			pthread_mutex_unlock(&coder->time_mutex);
-			req.priority = coder->data->args.time_burnout + current_time_ms;
-		}
+        { // if scheduler == EDF
+            long last_compile_from_start;
+            
+            pthread_mutex_lock(&coder->time_mutex);
+            // N-7sbo ch7al dyal l-wa9t daz mn start_time_tv 7ta akher compile
+            last_compile_from_start = ((coder->lst_compile_tv.tv_sec - coder->data->simulation.start_time_tv.tv_sec) * 1000) + 
+                                      ((coder->lst_compile_tv.tv_usec - coder->data->simulation.start_time_tv.tv_usec) / 1000);
+            pthread_mutex_unlock(&coder->time_mutex);
+            
+            // Priority hiya Deadline dyal L-Mawt b d-dabt (Absolute Time)
+            req.priority = last_compile_from_start + coder->data->args.time_burnout;
+        }
 
 		pthread_mutex_lock(&coder->coder_mutex);
 
@@ -130,7 +140,7 @@ int	monitor(t_data *data)
 	i = 0;
 	c = 0;
 	pthread_mutex_init(&data->simulation.timer_mutex, NULL);
-
+	
 	gettimeofday(&data->simulation.start_time_tv, NULL);
 	while (i < data->args.n_coders)
 	{	
@@ -187,7 +197,7 @@ int	monitor(t_data *data)
 				c++;
 			}
 			printf("%ld %d burned out\n", burnout, data->coders[i].id);
-			break; // Khrj mn l-boucle l-kbira
+			break;
 		}   
 
         if (finished_coders == data->args.n_coders)
@@ -205,51 +215,66 @@ int	monitor(t_data *data)
             break;
         }
 		int b = 0;
-// ------------------
+        // ------------------
         // L-MODIR (L-HEAP POP)
         // ------------------
         pthread_mutex_lock(&data->simulation.heap_mutex);
-        
-        if (data->heap.used > 0)
+        if(data->heap.used > 0)
         {
-            t_request temp_array[250]; // Sndo9 fin n-khebbiw li m-blokyin (kbr mn max coders)
+            t_request temp_array[250];   // Sndo9 fin n-khebbiw li m-blokyin
+            int dongle_needed[250];      // L-Bla9at dyal Reservation 🛑
+            int k = 0;
+            
+            // F l-bdaya, 7tta dongle ma fih bla9a
+            while (k < data->args.n_coders) {
+                dongle_needed[k] = 0;
+                k++;
+            }
+            
             int temp_count = 0;
-            int found_someone = 0;
+            long now;
 
-            // L-Modir kay-9lb f l'Heap kaml 7ta y-l9a chi wa7d y-9der y-khdem
+            // L-Modir kay-9lb f l'Heap kaml b t-tartib
             while (data->heap.used > 0)
             {
                 top_id = data->heap.array[0].coder_id - 1;
                 get_elapsed_ms(data->simulation.start_time_tv, &now);
 
-                // Wach hada wajd? (Dongles khawyin W brdou)
+                int l_id = top_id;
+                int r_id = (top_id + 1) % data->args.n_coders;
+
+                // Wach wajd? W (AND) 7ta wa7d 9bl mnno ma dar reservation l d-dongles dyalo?
                 if (data->coders[top_id].L_dongle->is_free &&
                     data->coders[top_id].R_dongle->is_free &&
                     now >= data->coders[top_id].L_dongle->available_at &&
-                    now >= data->coders[top_id].R_dongle->available_at)
+                    now >= data->coders[top_id].R_dongle->available_at &&
+                    dongle_needed[l_id] == 0 &&
+                    dongle_needed[r_id] == 0)
                 {
-                    // Wajd! 7jez lih d-dongles w fiy9o
+                    // Wajd w M-ta7! 3tiwh d-dongles w fiy9oh
                     data->coders[top_id].L_dongle->is_free = 0;
                     data->coders[top_id].R_dongle->is_free = 0;
 
                     poped = heap_pop(&data->heap);
                     pthread_mutex_lock(&data->coders[poped.coder_id - 1].coder_mutex);
                     pthread_cond_signal(&data->coders[poped.coder_id - 1].coder_cond);
-                    pthread_mutex_unlock(&data->coders[poped.coder_id - 1].coder_mutex);
-                    
-                    found_someone = 1; 
-                    break; // Salina l-9lib, l9ina wa7d y-khdem!
+                    pthread_mutex_unlock(&data->coders[poped.coder_id - 1].coder_mutex);                    
+                    break; // Salina l-9lib!
                 }
                 else
                 {
-                    // Ma-wajdch! Jbdou mn l'Heap w khebbyh f temp_array bach n-choufou li morah
+                    // L-Coder m-bloki. Ghadi n-khebbiwh f Sndo9 (Stash).
+                    // WALAKIN, 7it Priority dyalo tal3a, ghadi n-reservéw lih d-dongles dyalo!
+                    dongle_needed[l_id] = 1;
+                    dongle_needed[r_id] = 1;
+                    
                     temp_array[temp_count] = heap_pop(&data->heap);
                     temp_count++;
                 }
             }
-
-            // Mni salina (ima l9ina wla ma-l9inach), khassna N-RDDOU douk li khebbinahom l-l'Heap
-            int k = 0;
+            
+            // Rdd ga3 L-Coders li khebbinahom mn S-sndo9 (temp) l L'Heap bach y-tsnnaw d-dor dyalhom
+            k = 0;
             while (k < temp_count)
             {
                 heap_push(&data->heap, temp_array[k]);
@@ -257,8 +282,8 @@ int	monitor(t_data *data)
             }
         }
         pthread_mutex_unlock(&data->simulation.heap_mutex);
-        
         // usleep(500);
+        
     }
 
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:43:23 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/12 07:08:05 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/08/29 04:36:40 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int ac, char *av[])
 		return (1);
 	initializer(&data);
 	monitor(&data);
-	// coder_routine(&data.coders[0]);
+	free_dongles(&data);
+
 	return (0);
 }

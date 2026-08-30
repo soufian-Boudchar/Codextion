@@ -92,7 +92,6 @@ typedef struct s_data
 	t_heap				heap;
 	t_simulation		simulation;
 	t_monitor			monitor;
-
 }						t_data;
 
 int						ft_atoi(char *str);
@@ -108,4 +107,5 @@ void					*coder_routine(void *coder_ptr);
 int						monitor(t_data *data);
 t_request				heap_pop(t_heap *heap);
 void					heap_push(t_heap *heap, t_request new_req);
+void 					free_dongles(t_data *data);
 #endif
