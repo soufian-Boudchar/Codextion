@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   codexion.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/02 19:38:09 by sboudcha          #+#    #+#             */
+/*   Updated: 2026/09/02 19:38:40 by sboudcha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CODEXION_H
 # define CODEXION_H
 
-// this is missed imports and i have to remove its
 # include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
@@ -29,9 +40,9 @@ typedef struct s_dongle
 {
 	pthread_mutex_t		mutex;
 	pthread_cond_t		cond;
-	int 				is_free;
-	long 				cooldown;
-	long 				available_at;
+	int					is_free;
+	long				cooldown;
+	long				available_at;
 }						t_dongle;
 
 typedef struct s_coder
@@ -41,10 +52,10 @@ typedef struct s_coder
 	t_data				*data;
 	pthread_cond_t		coder_cond;
 	pthread_mutex_t		coder_mutex;
-	pthread_mutex_t 	time_mutex;
+	pthread_mutex_t		time_mutex;
 	pthread_mutex_t		compiles_mutex;
-	t_dongle			*L_dongle;
-	t_dongle			*R_dongle;
+	t_dongle			*l_dongle;
+	t_dongle			*r_dongle;
 	int					compiles_count;
 	struct timeval		lst_compile_tv;
 
@@ -71,19 +82,19 @@ typedef struct s_simulation
 	// long				current_time_ms;
 	struct timeval		current_time_tv;
 	pthread_mutex_t		current_time_mutex;
-	
+
 }						t_simulation;
+
 typedef struct s_monitor
 {
-	
 	int					game_over;
 	long				burnout_timer;
-	pthread_mutex_t     game_over_mutex;
-	struct timeval timer_tv;
-	long timer_ms;
-	int compiles;
+	pthread_mutex_t		game_over_mutex;
+	struct timeval		timer_tv;
+	long				timer_ms;
+	int					compiles;
 
-}			t_monitor;
+}						t_monitor;
 typedef struct s_data
 {
 	t_args				args;
@@ -94,7 +105,13 @@ typedef struct s_data
 	t_monitor			monitor;
 }						t_data;
 
+void					process_heap(t_data *data);
+void					join_coders(t_data *data);
+int						init_mutex(t_data *data);
+int						check_game_over(t_data *data);
+void					get_elapsed_ms(struct timeval start, long *time_ms);
 int						ft_atoi(char *str);
+int						monitor(t_data *data);
 void					init_args(char **av, t_args *args);
 int						scheduler_validator(t_args *arg, int *valid,
 							char *scheduler);
@@ -107,5 +124,5 @@ void					*coder_routine(void *coder_ptr);
 int						monitor(t_data *data);
 t_request				heap_pop(t_heap *heap);
 void					heap_push(t_heap *heap, t_request new_req);
-void 					free_dongles(t_data *data);
+void					free_dongles(t_data *data);
 #endif

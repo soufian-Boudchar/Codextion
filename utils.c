@@ -6,11 +6,23 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:56:49 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/03 15:22:32 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/02 19:40:51 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+void	join_coders(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->args.n_coders)
+	{
+		pthread_join(data->coders[i].tid, NULL);
+		i++;
+	}
+}
 
 int	ft_atoi(char *str)
 {
@@ -35,6 +47,12 @@ int	ft_atoi(char *str)
 		str++;
 	}
 	return ((int)res * sign);
+}
+void	free_dongles(t_data *data)
+{
+	free(data->dongles);
+	free(data->coders);
+	free(data->heap.array);
 }
 
 int	error_message(int error, char *arg)
@@ -69,4 +87,13 @@ int	error_message(int error, char *arg)
 				". Expected a value greater than 0.\n",
 				arg);
 	return (-1);
+}
+
+void	get_elapsed_ms(struct timeval start, long *time_ms)
+{
+	struct timeval	end;
+
+	gettimeofday(&end, NULL);
+	*time_ms = (((end.tv_sec - start.tv_sec) * 1000) + ((end.tv_usec
+					- start.tv_usec) / 1000));
 }

@@ -6,22 +6,21 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:43:23 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/29 04:36:40 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/01 11:41:53 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
 int	initializer(t_data *data)
-{	
+{
 	data->monitor.compiles = 0;
 	data->monitor.game_over = 0;
-
-	if (init_dongles(data) || init_coders(data) || init_heap(data))
+	if (init_dongles(data) || init_coders(data) || init_heap(data)
+		|| init_mutex(data))
 		return (1);
 	return (0);
 }
-
 
 int	main(int ac, char *av[])
 {
@@ -34,6 +33,5 @@ int	main(int ac, char *av[])
 	initializer(&data);
 	monitor(&data);
 	free_dongles(&data);
-
 	return (0);
 }
