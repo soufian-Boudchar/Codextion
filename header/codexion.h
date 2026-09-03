@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 19:38:09 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 06:33:09 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:28:59 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_simulation
 	pthread_mutex_t		timer_mutex;
 	pthread_mutex_t		heap_mutex;
 	struct timeval		start_time_tv;
-	// long				current_time_ms;
 	struct timeval		current_time_tv;
 	pthread_mutex_t		current_time_mutex;
 
