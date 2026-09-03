@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:09:30 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 03:55:20 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 06:32:22 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	heap_push(t_heap *heap, t_request new_req)
 	int	i;
 	int	parent;
 
-	// This is error for handling ?!
 	if (heap->used >= heap->size)
 		return ;
 	heap->array[heap->used] = new_req;
@@ -68,7 +67,6 @@ t_request	heap_pop(t_heap *heap)
 	int			smallest;
 	int			parent;
 
-	// This is error for handling ?!
 	if (heap->used == 0)
 	{
 		min.coder_id = -1;

@@ -1,7 +1,29 @@
-run:
-	@cc -g -Wall -Wextra -pthread main.c simulation_utils.c monitor_heap.c monitor.c utils.c init.c heap.c simulation.c validator.c codexion.h -o ./codexion
-	./codexion 5 3000 200 100 200 5 400 edf
-format:
-	@c_formatter_42 *.c *.h
-leak:
-	gcc -g -fsanitize=address -fno-omit-frame-pointer main.c utils.c init.c heap.c simulation.c validator.c free.c codexion.h -o ./leak
+NAME = codexion
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -pthread
+OBJ_DIR = object_files
+
+SRC = main.c simulation_utils.c \
+	  monitor_heap.c monitor.c \
+	  utils.c init.c heap.c \
+	  simulation.c validator.c
+OBJ = $(SRC:.c=.o)
+HEADER = ./codexion.h
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
+
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

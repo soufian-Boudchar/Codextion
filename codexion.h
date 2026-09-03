@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 19:38:09 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 03:48:04 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 06:33:09 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int						check_game_over(t_data *data);
 
 void					process_heap(t_data *data);
 void					join_coders(t_data *data);
-int						init_mutex(t_data *data);
+void					init_mutex(t_data *data);
 int						check_game_over(t_data *data);
 void					get_elapsed_ms(struct timeval start, long *time_ms);
 int						ft_atoi(char *str);
@@ -134,4 +134,5 @@ void					compile(t_coder *coder);
 void					release_dongles(t_coder *coder);
 void					debug_refactor(t_coder *coder);
 void					print_action(t_coder *coder, char *action);
+
 #endif
