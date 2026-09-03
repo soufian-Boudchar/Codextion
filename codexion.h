@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 19:38:09 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/02 19:38:40 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 03:48:04 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ typedef struct s_data
 	t_monitor			monitor;
 }						t_data;
 
+int						check_game_over(t_data *data);
+
 void					process_heap(t_data *data);
 void					join_coders(t_data *data);
 int						init_mutex(t_data *data);
@@ -124,5 +126,12 @@ void					*coder_routine(void *coder_ptr);
 int						monitor(t_data *data);
 t_request				heap_pop(t_heap *heap);
 void					heap_push(t_heap *heap, t_request new_req);
-void					free_dongles(t_data *data);
+void					free_all(t_data *data);
+void					update_simulation_current_time(t_data *data,
+							long *current_time_ms);
+void					take_dongles(t_coder *coder);
+void					compile(t_coder *coder);
+void					release_dongles(t_coder *coder);
+void					debug_refactor(t_coder *coder);
+void					print_action(t_coder *coder, char *action);
 #endif

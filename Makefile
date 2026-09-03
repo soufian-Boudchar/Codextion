@@ -1,5 +1,5 @@
 run:
-	@cc -g -Wall -Wextra -pthread main.c monitor_heap.c monitor.c utils.c init.c heap.c simulation.c validator.c codexion.h -o ./codexion
+	@cc -g -Wall -Wextra -pthread main.c simulation_utils.c monitor_heap.c monitor.c utils.c init.c heap.c simulation.c validator.c codexion.h -o ./codexion
 	./codexion 5 3000 200 100 200 5 400 edf
 format:
 	@c_formatter_42 *.c *.h

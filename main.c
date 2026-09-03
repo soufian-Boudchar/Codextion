@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:43:23 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/01 11:41:53 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 03:41:25 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ int	initializer(t_data *data)
 	return (0);
 }
 
+void	free_all(t_data *data)
+{
+	free(data->dongles);
+	free(data->coders);
+	free(data->heap.array);
+}
+
 int	main(int ac, char *av[])
 {
 	t_data	data;
@@ -32,6 +39,6 @@ int	main(int ac, char *av[])
 		return (1);
 	initializer(&data);
 	monitor(&data);
-	free_dongles(&data);
+	free_all(&data);
 	return (0);
 }

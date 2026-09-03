@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:56:49 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/02 19:40:51 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 03:41:43 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,15 @@ int	ft_atoi(char *str)
 	}
 	return ((int)res * sign);
 }
-void	free_dongles(t_data *data)
+
+int	check_game_over(t_data *data)
 {
-	free(data->dongles);
-	free(data->coders);
-	free(data->heap.array);
+	int	status;
+
+	pthread_mutex_lock(&data->monitor.game_over_mutex);
+	status = data->monitor.game_over;
+	pthread_mutex_unlock(&data->monitor.game_over_mutex);
+	return (status);
 }
 
 int	error_message(int error, char *arg)
