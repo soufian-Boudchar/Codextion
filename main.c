@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:43:23 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 03:41:25 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 04:11:02 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int	main(int ac, char *av[])
 		return (error_message(1, NULL));
 	if (validate_args(av + 1, &data.args) == -1)
 		return (1);
-	initializer(&data);
+	if (initializer(&data))
+		return (1);
+
 	monitor(&data);
 	free_all(&data);
 	return (0);

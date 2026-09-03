@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:47:03 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/10 03:50:57 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 03:56:58 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_args(char **av, t_args *args)
 	args->time_refactor = ft_atoi(av[4]);
 	args->n_compiles_required = ft_atoi(av[5]);
 	args->dongle_cooldown = ft_atoi(av[6]);
-	// args->scheduler = av[7];
 }
 
 int	scheduler_validator(t_args *args, int *valid, char *scheduler)

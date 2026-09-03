@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 03:09:30 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/08/07 02:02:01 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 03:55:20 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	heap_push(t_heap *heap, t_request new_req)
 			break ;
 	}
 }
+
 int	get_smallest(t_heap *heap, int parent)
 {
 	int	left;

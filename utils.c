@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:56:49 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 03:41:43 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 03:54:14 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,27 @@ int	error_message(int error, char *arg)
 {
 	if (error == 1)
 		fprintf(stderr,
-				"\033[31m[ERROR]\033[0m"
-				" Invalid number of parameters."
-				" Expected exactly 8 parameters.\n");
+			"\033[31m[ERROR]\033[0m Invalid number of parameters."
+			" Expected exactly 8 parameters.\n");
 	else if (error == 2)
 		fprintf(stderr,
-				"\033[31m[ERROR]\033[0m"
-				" Invalid value \"%s\"."
-				" Expected a positive integer value.\n",
-				arg);
+			"\033[31m[ERROR]\033[0m Invalid value \"%s\"."
+			" Expected a positive integer value.\n", arg);
 	else if (error == 3)
 		fprintf(stderr,
-				"\033[31m[ERROR]\033[0m"
-				" Invalid scheduler \"%s\"."
-				" Expected \"edf\" or \"fifo\".\n",
-				arg);
+			"\033[31m[ERROR]\033[0m"
+			" Invalid scheduler \"%s\"."
+			" Expected \"edf\" or \"fifo\".\n", arg);
 	else if (error == 4)
 		fprintf(stderr,
-				"\033[31m[ERROR]\033[0m"
-				" Invalid number of coders \'%s\'."
-				" Expected a value greater than 0.\n",
-				arg);
+			"\033[31m[ERROR]\033[0m"
+			" Invalid number of coders \'%s\'."
+			" Expected a value greater than 0.\n", arg);
 	else if (error == 5)
 		fprintf(stderr,
-				"\033[31m[ERROR]\033[0m"
-				" Invalid number of compiles required \'%s\'"
-				". Expected a value greater than 0.\n",
-				arg);
+			"\033[31m[ERROR]\033[0m"
+			" Invalid number of compiles required \'%s\'"
+			". Expected a value greater than 0.\n", arg);
 	return (-1);
 }
 

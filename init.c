@@ -6,7 +6,7 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 17:12:48 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/02 19:38:40 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 04:05:58 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,4 @@ int	init_mutex(t_data *data)
 	pthread_mutex_init(&data->simulation.current_time_mutex, NULL);
 	pthread_mutex_init(&data->monitor.game_over_mutex, NULL);
 }
+	
