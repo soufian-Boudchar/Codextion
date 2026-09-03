@@ -6,11 +6,11 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:47:03 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 03:56:58 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:24:13 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../header/codexion.h"
 
 void	init_args(char **av, t_args *args)
 {

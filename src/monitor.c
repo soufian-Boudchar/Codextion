@@ -6,11 +6,11 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 05:17:04 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/02 05:17:20 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:24:00 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../header/codexion.h"
 
 static void	signal_all_coders(t_data *data)
 {

@@ -6,11 +6,11 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 02:31:48 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 03:47:57 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:24:07 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../header/codexion.h"
 
 void	print_action(t_coder *coder, char *action)
 {

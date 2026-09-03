@@ -1,21 +1,26 @@
 NAME = codexion
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
-OBJ_DIR = object_files
 
-SRC = main.c simulation_utils.c \
-	  monitor_heap.c monitor.c \
-	  utils.c init.c heap.c \
-	  simulation.c validator.c
-OBJ = $(SRC:.c=.o)
-HEADER = ./codexion.h
+OBJ_DIR = obj
+
+SRC = src/main.c src/simulation_utils.c \
+      src/monitor_heap.c src/monitor.c \
+      src/utils.c src/init.c src/heap.c \
+      src/simulation.c src/validator.c
+
+OBJ = $(SRC:src/%.c=$(OBJ_DIR)/%.o)
+
+HEADER = header/codexion.h
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -o $(NAME)
 
-%.o: %.c $(HEADER)
+$(OBJ_DIR)/%.o: src/%.c $(HEADER)
+	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

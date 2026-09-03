@@ -6,11 +6,11 @@
 /*   By: sboudcha <sboudcha@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/31 00:43:23 by sboudcha          #+#    #+#             */
-/*   Updated: 2026/09/03 06:31:52 by sboudcha         ###   ########.fr       */
+/*   Updated: 2026/09/03 07:23:55 by sboudcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../header/codexion.h"
 
 static void	one_coder(t_data *data)
 {
@@ -59,6 +59,7 @@ int	main(int ac, char *av[])
 	if (data.args.n_coders == 1)
 	{
 		one_coder(&data);
+		free_all(&data);
 		return (0);
 	}
 	monitor(&data);
